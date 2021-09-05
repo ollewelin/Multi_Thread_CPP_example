@@ -34,6 +34,10 @@ class ThreadTarget
     void Thread(void);
 
 };
+ThreadTarget::~ThreadTarget()
+{
+    printf("ThreadTarget is deleted\n");
+};
 
 ThreadTarget::ThreadTarget(pthread_mutex_t* mut)
      :mut_(mut)
@@ -103,11 +107,8 @@ int main(void)
     // instance)
     TargThread->Start();
     int main_loop_cnt = 0;
-    while(1)
+    while(main_loop_cnt < 100)
     {
-
-
-
         if(pthread_mutex_trylock(mut) == 0)
         {
             TargThread->testdata--;
@@ -126,9 +127,10 @@ int main(void)
         printf("Main sleep 200ms\n");
         usleep(200000);//Sleep main thread.
         //printf("\033c");//Flushing the screen
-
     }
 
+    delete TargThread;
+    delete mut;
     return 1;
 }
 
