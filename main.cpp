@@ -29,7 +29,6 @@ class ThreadTarget
 
     int thread_loop_cnt;
 
-
     /// This function does the thread work
     void Thread(void);
 
@@ -41,8 +40,10 @@ ThreadTarget::~ThreadTarget()
 
 ThreadTarget::ThreadTarget(pthread_mutex_t* mut)
      :mut_(mut)
-{
 
+{
+    testdata = 0,
+    thread_loop_cnt = 0;
 };
 
 /// Function seen by POSIX as thread function
@@ -77,15 +78,14 @@ void ThreadTarget::Thread(void)
 }
 bool ThreadTarget::Start(void)
 {
-    thread_loop_cnt = 0;
-  // Start the thread, send it the this pointer (points to this class
+   // Start the thread, send it the this pointer (points to this class
   // instance)
 
   //pthread_create() takes 4 arguments.
   //The first argument is a pointer to thread_id which is set by this function.
   //The second argument specifies attributes. If the value is NULL, then default attributes shall be used.
   //The third argument is name of function to be executed for the thread to be created.
-  //The fourth argument is used to pass arguments to the function, doSomthing.
+  //The fourth argument is used to pass arguments to the function.
 
   return (pthread_create(&threadId_,    // Pointer to the thread handle
                          NULL,          // Optional ptr to thread settings
@@ -100,8 +100,6 @@ int main(void)
     mut = new pthread_mutex_t;
     pthread_mutex_init(mut, NULL);
     TargThread = new ThreadTarget(mut);
-
-    TargThread->testdata = 0;//Start value
 
     // Start the thread, send it the this pointer (points to this class
     // instance)
