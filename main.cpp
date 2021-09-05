@@ -118,7 +118,7 @@ int main(void)
         }
         else
         {
-            printf("Main program was loocked out from decrease testdata by the increase thread\n");
+            printf("Main program was locked out from decrease testdata by the increase thread\n");
         }
 
         main_loop_cnt++;
