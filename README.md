@@ -1,4 +1,4 @@
-# Multi_Thread_CPP_example
+# Multi Thread C++ example
 Multithread example with mutex and trylock
 
 ## Description
