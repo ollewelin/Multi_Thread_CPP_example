@@ -49,10 +49,9 @@ ThreadTarget::ThreadTarget(pthread_mutex_t* mut)
 /// Function seen by POSIX as thread function
 void* ThreadTarget::ThreadWrapper(void* data)
 {
-    printf("Hej\n");
     // data is a pointer to a Thread, so we can call the
     // real thread function
-    (static_cast<ThreadTarget*>(data))->Thread();
+    (static_cast<ThreadTarget*>(data))->Thread();//Here is where the magic happend to connect this thread object wrapper to the ThreadTarget::Thread(void) funtion below
     return 0;
 }
 
@@ -61,8 +60,6 @@ void ThreadTarget::Thread(void)
 {
     while(1)
     {
-
-
       pthread_mutex_lock(mut_);
       //... Do the update of shared memory here ....
 
