@@ -23,7 +23,7 @@ class ThreadTarget
     /// Function seen by POSIX as thread function
     static void* ThreadWrapper(void* data);
 
-  private:
+    private:
     /// Mutex reference
     pthread_mutex_t *mut_;
 
@@ -32,9 +32,12 @@ class ThreadTarget
     /// This function does the thread work
     void Thread(void);
 
+
+
 };
 ThreadTarget::~ThreadTarget()
 {
+    pthread_cancel(threadId_);
     printf("ThreadTarget is deleted\n");
 };
 
@@ -125,7 +128,10 @@ int main(void)
     }
 
     delete TargThread;
+    TargThread = NULL;
     delete mut;
+    mut = NULL;
+
     return 1;
 }
 
